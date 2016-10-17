@@ -1,5 +1,5 @@
 you can use struct.js help do some work like deal with common data structure. for example, you can use like 
-"var peeople = [{name: "aa",age:10},{name:"bb",age:11},{name:"cc",age:12},{name:"aa",age:12},{name:"bb",age:12}];struct.getTeamsBy(people,'name');",
+"var people = [{name: "aa",age:10},{name:"bb",age:11},{name:"cc",age:12},{name:"aa",age:12},{name:"bb",age:12}];struct.getTeamsBy(people,'name');",
 the result is people divided into teams by same name value,realize divid objects into teams by different public attribute value.
 
 
