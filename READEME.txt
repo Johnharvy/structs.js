@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 struct.js希望解决结构层次较复杂的数据的整理问题：
 
 · getTeamsBy ： 对若干个有着相同属性名称的对象按照属性名进行分组,第一个参数为对象组成的数组，第二个参数为参照的属性名称，返回一个数组。(处理未知数量的对象分组优选)
+=======
+you can use struct.js help do some work like deal with common data structure. for example, you can use like 
+"var people = [{name: "aa",age:10},{name:"bb",age:11},{name:"cc",age:12},{name:"aa",age:12},{name:"bb",age:12}];struct.getTeamsBy(people,'name');",
+the result is people divided into teams by same name value,realize divid objects into teams by different public attribute value.
+
+
+
+>>>>>>> origin/master
 
