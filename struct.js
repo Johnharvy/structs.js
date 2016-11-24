@@ -1,6 +1,5 @@
 var struct = (function(){
-
-//对若干个有着相同属性名称的对象按照属性名进行分组,第一个参数为对象组成的数组，第二个参数为参照的属性名称，返回一个数组。(处理未知数量的对象分组优选)
+//The first attribute is  an array object that contains objects, second is public attribute of objects,you can divide the objects into many teams  by the same pro value.
 this.getTeamsBy = function(arr,pro){  
     var temp = [];
     var i = 0;
@@ -27,7 +26,7 @@ this.getTeamsBy = function(arr,pro){
      return temp;
 }
 
-// pull 可以删除数组中任意元素，不改变数组元素排列顺序
+// pull can relize delete any element of  an array and Maintain element order
 Array.prototype.pull = pull;
 function pull(item){
     var a = [];
