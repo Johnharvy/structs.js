@@ -10,18 +10,24 @@ var struct = (function(){
 //对未知数量具有相同属性的对象数组按照属性分组
 this.getTeamsBy = function(arr,pro){ 
     //如果arr不是对象组成的数组,属性不是共有属性
-    for(var __x in arr){
-      if(typeof(arr[__x]) != "object" || arr[__x][pro] == undefined){
+    for(var _x_y = 0 ; _x_y < arr.length; _x_y++){
+      if(typeof(arr[_x_y]) != "object" ){
          console.error("数组参数格式错误！");
          return;
       } 
+
+      if(arr[_x_y][pro] === undefined){
+         console.error("该属性非公共属性！");
+         return;
+      }
     }
     var temp = [];
     var i = 0;
+
     function do1(arr){
-       var stand = arr[0][pro];
-        temp[i] = []; 
-       var indexs =[]; 
+       var stand = arr[0][pro]; //基数组第一个设为标准
+       temp[i] = [];  //用来存放找到的一组数据
+       var indexs =[]; //存放属性值相同的元素
        for (var k = 0;k < arr.length; k++ ){
            if( arr[k][pro] === stand){
             temp[i].push(arr[k]);
@@ -30,11 +36,12 @@ this.getTeamsBy = function(arr,pro){
        }
    (function(){
        for( var j = 0; j< indexs.length; j++){
-              arr.pull(indexs[j]);
+              arr.pull(indexs[j]); //基数组删除已排列好的元素
           }
        })();
     }
-   while(arr.length > 0){
+
+   while(arr.length > 0){ //数组不为空
         do1(arr);
         i++;
     }
@@ -74,6 +81,10 @@ function pull(item){
 
    /*可以吃掉其他对象成长自己，并支持链式调用*/
    this.contact = function(ob){
+            if(typeof(ob) != "object"){
+              console.error("参数必须是对象！");
+              return;
+            } 
             for(var x in ob){
                 this.dataPocket[x] = ob[x];
             }
