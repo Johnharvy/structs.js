@@ -8,7 +8,14 @@ var struct = (function(){
   this.dataPocket = {}; //保存strut对象收纳的值
 
 //对未知数量具有相同属性的对象数组按照属性分组
-this.getTeamsBy = function(arr,pro){  
+this.getTeamsBy = function(arr,pro){ 
+    //如果arr不是对象组成的数组,属性不是共有属性
+    for(var __x in arr){
+      if(typeof(arr[__x]) != "object" || arr[__x][pro] == undefined){
+         console.error("数组参数格式错误！");
+         return;
+      } 
+    }
     var temp = [];
     var i = 0;
     function do1(arr){
