@@ -1,11 +1,19 @@
+/**
+  *version : 0.5
+  *注重简化处理对象及结构常规性问题
+  *author: JohnHarvy
+*/
 var struct = (function(){
-//The first attribute is  an array object that contains objects, second is public attribute of objects,you can divide the objects into many teams  by the same pro value.
+
+  this.dataPocket = {}; //保存strut对象收纳的值
+
+//对未知数量具有相同属性的对象数组按照属性分组
 this.getTeamsBy = function(arr,pro){  
     var temp = [];
     var i = 0;
     function do1(arr){
-       var stand = arr[0][pro]; 
-       temp[i] = []; 
+       var stand = arr[0][pro];
+        temp[i] = []; 
        var indexs =[]; 
        for (var k = 0;k < arr.length; k++ ){
            if( arr[k][pro] === stand){
@@ -56,8 +64,18 @@ function pull(item){
      })();
      return a; 
 }
+
+   /*可以吃掉其他对象成长自己，并支持链式调用*/
+   this.contact = function(ob){
+            for(var x in ob){
+                this.dataPocket[x] = ob[x];
+            }
+            return this;
+        } 
+
     return this;
     }).call({});
 
 if (typeof module != "undefined" && module !== null && module.exports) module.exports = struct;
 else if (typeof define === "function" && define.amd) define(function() {return struct});
+
