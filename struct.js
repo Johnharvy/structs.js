@@ -91,7 +91,63 @@ function pull(item){
             return this;
         } 
 
-    return this;
+    /*叉树数据结构平面化查找处理,返回层次位置，所在层序列位置，值重复时的序列位置*/
+    this.deriveFind2D = function(ob,item){
+        var Teams = [];
+        var i = 0;
+        Teams[i] =[];
+
+        function examOb(obArr){ //检查某列数组中是否有下续对象
+           for(var x in obArr){
+             if(typeof(obArr[x]) == "object"){
+                return true;
+               }
+            }
+           return false;
+        }
+           //第一列集合
+        (function(){
+          for( var x in ob){
+           Teams[0].push(ob[x]);
+          }
+        })();  
+
+        while(examOb(Teams[i])){
+          var _a = i+1;
+          Teams[_a] = [];
+         
+        (function(){
+             for(var x in Teams[i]){ //每层数组中检索
+              if(typeof(Teams[i][x]) == "object"){
+               for(var y in Teams[i][x]){  //每层数组中每个元素的属性
+                Teams[_a].push(Teams[i][x][y]);
+                 }
+               }
+              }
+          })();
+
+          i++;
+        }
+        var totalIndexs = [];
+        var _index = -1; //计数器
+           //记录位置
+           (function(){
+            console.log(Teams[1]);
+             for(var i = 0; i< Teams.length;i++){
+                  for(var y = 0; y < Teams[i].length; y++){
+                    if(JSON.stringify(Teams[i][y]) === JSON.stringify(item)){
+                      _index++;
+                      totalIndexs.push({level:i,levelIndex:y,order:_index});
+                    }
+                  }
+             }
+           })();
+
+         if(totalIndexs.length >0) return totalIndexs;
+         else return _index;
+ }    
+
+  return this;
     }).call({});
 
 if (typeof module != "undefined" && module !== null && module.exports) module.exports = struct;
