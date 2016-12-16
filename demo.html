@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./struct.js"></script>
+</head>
+<body>
+   <script>
+        var data = [{name:"person1",age:18},{name:"person2",age:19},{name:"person3",age:19},{name:"person4",age:20}]; //4个测试数据
+
+        var data2 = {name:"person1",age:18,sons:[{name:"son1",age:3},{name:"son2",age:4},{age:4}]};//数据多叉树结构（衍生结构）
+        
+        var r1 = struct.getTeamsBy(data,"age"); //getTeamsBy用来对未知数量的对象按指定的公共属性分类
+        console.log(r1); 
+
+        var r2 = struct.contact({name:"p1"}).contact({name:"p2"});
+        console.log(r2.dataPocket); //contact可以链式吸收对象属性，收纳到dataPocket中
+
+        var r3 = struct.deriveFind2D(data2,18);
+        console.log(r3); //deriveFind2D用来将分叉树结构扁平化用坐标表示位置，传坐标进来找到
+
+    </script>
+</body>
+</html>
