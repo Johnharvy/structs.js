@@ -9,6 +9,37 @@ var struct = (function(){
 
 //对未知数量具有相同属性的对象数组按照属性分组
 this.getTeamsBy = function(arr,pro){ 
+
+  // pull can relize delete any element of  an array and Maintain element order
+Array.prototype.pull = pull;
+function pull(item){
+    var a = [];
+    a = this;
+    var that = this;
+    var temp;
+    var index;
+     (function(){
+        for( var z = 0; z < that.length;z++ ){
+           if(that[z] === item){
+                a[z] = temp;
+                a[z] = a[0];
+                a[0] = temp;
+                index = z;
+                z = that.length;
+             }
+        }
+     })();
+     a.shift();       
+     (function(){
+        if(index == 0) return;
+        temp = a[index-1];
+        for( var y = index-1;y > 0; y--){
+              a[y] = a[y -1];
+        }
+        a[0] = temp;
+     })();
+     return a; 
+}
     //如果arr不是对象组成的数组,属性不是共有属性
     for(var _x_y = 0 ; _x_y < arr.length; _x_y++){
       if(typeof(arr[_x_y]) != "object" ){
@@ -48,36 +79,7 @@ this.getTeamsBy = function(arr,pro){
      return temp;
 }
 
-// pull can relize delete any element of  an array and Maintain element order
-Array.prototype.pull = pull;
-function pull(item){
-    var a = [];
-    a = this;
-    var that = this;
-    var temp;
-    var index;
-     (function(){
-        for( var z = 0; z < that.length;z++ ){
-           if(that[z] === item){
-                a[z] = temp;
-                a[z] = a[0];
-                a[0] = temp;
-                index = z;
-                z = that.length;
-             }
-        }
-     })();
-     a.shift();       
-     (function(){
-        if(index == 0) return;
-        temp = a[index-1];
-        for( var y = index-1;y > 0; y--){
-              a[y] = a[y -1];
-        }
-        a[0] = temp;
-     })();
-     return a; 
-}
+
 
    /*可以吃掉其他对象成长自己，并支持链式调用*/
    this.contact = function(ob){
@@ -132,7 +134,6 @@ function pull(item){
         var _index = -1; //计数器
            //记录位置
            (function(){
-            console.log(Teams[1]);
              for(var i = 0; i< Teams.length;i++){
                   for(var y = 0; y < Teams[i].length; y++){
                     if(JSON.stringify(Teams[i][y]) === JSON.stringify(item)){
@@ -145,11 +146,113 @@ function pull(item){
 
          if(totalIndexs.length >0) return totalIndexs;
          else return _index;
- }    
+ }
 
   return this;
     }).call({});
 
+  /*List dataStruct,列表结构*/
+  struct.List =  function List(){
+    this.listSize = 0;  //用来控制元素个数
+    this.pos = 1; //当前位置
+    this.dataStore = []; //存储元素的地方
+
+    this.clear = function(){ //清空列表,链式
+        this.listSize =  0;
+        this.dataStore.length = 0;
+        this.pos = 1;
+        return this;
+     }
+
+    this.print= function(){ //打印列表内容,链式
+       console.log (this.dataStore.toString().replace(/,/g,"\n"));
+       return this;
+    }
+
+    this.getCurElement = function(){  //返回当前位置的元素
+       return this.listSize === 0 ?   false : this.dataStore[this.pos-1];
+    }
+
+
+    this.length = function(){  //返回元素的个数
+        return this.listSize;
+    }
+
+    this.append =function(ob){  //末尾添加元素，链式
+        this.dataStore.push(ob);
+        this.listSize++;
+        return this;
+    }
+
+    this.insert = function(ob){  //插入元素,链式
+        var that = this;
+        (function(){
+            for(var i = (that.listSize-1); i > (that.pos-1); i--){
+               that.dataStore[i+1] = that.dataStore[i];
+            }
+        })();
+        that.dataStore[that.pos] = ob;
+        that.listSize++;
+        that.pos++ ;
+        return this;
+    }
+
+    this.find = function(ob){ //找到元素的序列位置
+        var _index = 0;
+        var that = this;
+        (function(){
+            for(var i = 0; i < that.listSize; i++){
+                if(that.dataStore[i] === ob ){
+                      _index = i+1;
+                }
+            }
+        })();
+        this.pos=_index;
+        return _index;
+    }
+
+    this.remove = function(ob){  //删除某元素
+        var _index = this.find(ob);
+        var that = this;
+        (function(){
+             for(var i = _index - 1; i < that.listSize - 1; i++ ){
+                that.dataStore[i] = that.dataStore[i+1];
+             }
+        })();
+        this.dataStore.pop();
+        this.listSize--;
+        if(this.pos > 1)  this.pos--;
+    }
+
+    this.next = function(){  //下一个元素,链式
+         if(this.pos < this.listSize) this.pos++;  
+          return this;
+       
+    }
+
+    this.last = function(){  //上一个元素，链式
+         if(this.pos > 1) this.pos--; 
+          return this;
+        
+    }
+
+    this.moveTo = function(index){ //移动到指定位置,链式
+         if(index > 0  && index <= this.listSize){
+                this.pos = index;
+                return this;
+         }
+         else return false;
+    }
+
+    this.hasNext = function(){  //判断是否有上个元素
+        return this.pos < this.listSize? true : false;       
+    }
+
+    this.hasLast = function(){ //判断是否有下一个元素
+        return this.pos > 1? true : false;
+    }  
+
+}
 if (typeof module != "undefined" && module !== null && module.exports) module.exports = struct;
 else if (typeof define === "function" && define.amd) define(function() {return struct});
 
