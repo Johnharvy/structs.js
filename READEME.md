@@ -26,21 +26,21 @@
 
 2. 在元素组成的集合中，希望在集合中找到某元素后并插入另一个新元素
 
-    var struct = require("./struct.js");
-    var list = new struct.List();
-    list.append("apple").append("banana").append("orange").print();   
+        var struct = require("./struct.js");
+        var list = new struct.List();
+        list.append("apple").append("banana").append("orange").print();   
 
-    /*  apple  
-        banana  
-        orange  */
+        /*  apple  
+            banana  
+            orange  */
 
-    list.find("banana");
-    list.append("strawbrarry").print();
+        list.find("banana");
+        list.append("strawbrarry").print();
 
-    /*  apple  
-        banana
-        strawbrarry 
-        orange  */
+        /*  apple  
+            banana
+            strawbrarry 
+            orange  */
 
   #### struct.List的接口文档（标有链式即支持链式操作）:
     ·clear   清空列表,链式

@@ -5,9 +5,6 @@
 */
 var struct = (function(){
 
-this.dataPocket = {}; //保存strut对象收纳的值
-
-
 // pull can relize delete any element of  an array and Maintain element order
 Array.prototype.pull = function (item){
     var that = this;
@@ -56,10 +53,10 @@ this.tools ={
 }).call(Object.create(null));
 
   /*List dataStruct,列表结构*/
-  struct.List =  function List(){
+  struct.List =  function List(list){
     this.listSize = 0;  //用来控制元素个数
     this.pos = 1; //当前位置
-    this.dataStore = []; //存储元素的地方
+    this.dataStore = list? list : []; //存储元素的地方
 
     this.clear = function(){ //清空列表,链式
         this.listSize =  0;
@@ -158,6 +155,79 @@ this.tools ={
 
 }
 
+/**
+ *  栈
+ */
+  
+   struct.Stack = function(list){
+         this.dataStore = list? list : [];
+         this.top = top;
+         this.pop = pop;
+         this.push = push;
+         this.pressIn = pressIn;
+         this.peek = peek;
+         this.clear = clear;
+         this.length = length;
+
+         
+
+         //弹出顶部元素 
+         function pop(callback){
+             if(!this.length()) return; 
+             var _p =  this.dataStore.pop();
+             callback && callback(_p);
+             return this;
+         }
+
+         //压入尾部
+         function push(item){
+               this.dataStore.push(item);
+         }
+
+         //压到底部
+         function pressIn(item){
+             this.dataStore.push(item);
+             for(var i = this.dataStore.length - 1; i > 0; i-- ){
+                 this.dataStore[i] = this.dataStore[i-1];
+             }
+             this.dataStore[0] = item;
+              return this;
+         }
+
+         //查看栈底元素
+         function peek(){
+             if(!this.length()) return;
+             return this.dataStore[0];
+         }
+
+         //查看栈顶元素
+         function top(){
+            if(!this.length()) return;
+             return this.dataStore[this.length()-1];
+         }
+
+         //清空栈
+         function clear(){
+              this.dataStore = [];
+              return this;
+         }
+
+         //查看栈的长度
+         function length(){
+             return this.dataStore.length;
+         }
+
+   }
+
+
+ /**
+  *   队列
+  */  
+
+  struct.Queue = function(list){
+          this.dataStore = list? list : [];
+          
+  }
 
 
 
