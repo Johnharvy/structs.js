@@ -4,15 +4,19 @@
   *author: JohnHarvy
 */
 var struct = (function(){
-
+    
 // pull can relize delete any element of  an array and Maintain element order
 Array.prototype.pull = function (item){
+
     var that = this;
     var temp; 
     var index;
+
      (function(){
+        
         for( var z = 0; z < that.length; z++){
-           if(typeof item === "object"? that.tools.compareJsOb(item,that[z]) : (that[z] === item)){
+
+           if(typeof item === "object"? (struct.tools.compareJsOb(item,that[z])) : (that[z] === item)){
                 that[z] = temp;
                 that[z] = that[0];
                 that[0] = temp;
@@ -21,7 +25,9 @@ Array.prototype.pull = function (item){
              }
         }
      })();
-     that.shift();       
+
+     that.shift();   
+
      (function(){
         if(index === 0) return;
         temp = that[index-1];

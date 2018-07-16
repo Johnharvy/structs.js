@@ -14,9 +14,6 @@
         var r1 = struct.getTeamsBy(data,"age"); //getTeamsBy用来对未知数量的对象按指定的公共属性分类
         console.log(r1); 
 
-        var r2 = struct.contact({name:"p1"}).contact({name:"p2"});
-        console.log(r2.dataPocket); //contact可以链式吸收对象属性，收纳到dataPocket中
-
         var r3 = struct.deriveFind2D(data2,18);
         console.log(r3); //deriveFind2D用来将分叉树结构扁平化用坐标表示位置，传坐标进来找到
 
